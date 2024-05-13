@@ -19,7 +19,7 @@ const blog = new Schema({
         require:true,
         default:"NONE"
     },
-    published_data:{
+    published_date:{
         type: String,
         require:true,
         default:"NONE"
