@@ -120,7 +120,7 @@ const getwithid = async (req, res) => {
 
 const getrandomblog = async (req, res) => {
     try {
-        const blogs = await Blog.aggregate([{$sample:{size:1}}]);
+        const blogs = await Blog.aggregate([{ $sample: { size: 1 } }]);
 
         if (blogs.length === 0) {
             return res.status(404).json({ message: "No blogs found with the specified author" });
@@ -135,16 +135,16 @@ const getrandomblog = async (req, res) => {
 
 const updateblog = async (req, res) => {
     const id = req.query.id
-    const { content }=req.body.data
+    const { content } = req.body.data
     // console.log(id,content)
     try {
-        const updatedblog = await Blog.findByIdAndUpdate(id,{content},{new:true});
+        const updatedblog = await Blog.findByIdAndUpdate(id, { content }, { new: true });
 
         if (!updateblog) {
             return res.status(404).json({ message: "No blogs found with the specified author" });
         }
-        else{
-            
+        else {
+
         }
         res.status(200).json({ message: "Blogs updated successfully", data: updatedblog });
     } catch (err) {
@@ -162,8 +162,8 @@ const deleteblog = async (req, res) => {
         if (!updateblog) {
             return res.status(404).json({ message: "No blogs found with the specified author" });
         }
-        else{
-            
+        else {
+
         }
         res.status(200).json({ message: "Blogs deleted successfully", data: deletedblog });
     } catch (err) {
@@ -172,4 +172,4 @@ const deleteblog = async (req, res) => {
     }
 }
 
-module.exports = { createblog, createblogmultiple, getallblogs, getallauthors, getalltags, getwithtag, getwithauthor, getwithid ,getrandomblog,updateblog,deleteblog}
+module.exports = { createblog, createblogmultiple, getallblogs, getallauthors, getalltags, getwithtag, getwithauthor, getwithid, getrandomblog, updateblog, deleteblog }
