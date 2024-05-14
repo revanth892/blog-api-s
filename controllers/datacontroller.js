@@ -35,4 +35,29 @@ const createblogmultiple=async(req,res)=>{
     }
 }
 
-module.exports={createblog,createblogmultiple}
+const getallblogs=async(req,res)=>
+{
+    try{
+        const allBlogs= await Blog.find({})
+        res.status(201).json({message :"Blogs fetched suuccessfully",data:allBlogs})
+    }
+    catch(err)
+    {
+        console.error("Error fetching blog:",err)
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
+
+const getallauthors=async(req,res)=>
+{
+    try{
+        const allauthors= await Blog.find({},'author').exec();
+        res.status(201).json({message :"Blogs fetched suuccessfully",data:allauthors})
+    }
+    catch(err)
+    {
+        console.error("Error fetching authors:",err)
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
+module.exports={createblog,createblogmultiple,getallblogs,getallauthors}
