@@ -132,4 +132,44 @@ const getrandomblog = async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 }
-module.exports = { createblog, createblogmultiple, getallblogs, getallauthors, getalltags, getwithtag, getwithauthor, getwithid ,getrandomblog}
+
+const updateblog = async (req, res) => {
+    const id = req.query.id
+    const { content }=req.body.data
+    // console.log(id,content)
+    try {
+        const updatedblog = await Blog.findByIdAndUpdate(id,{content},{new:true});
+
+        if (!updateblog) {
+            return res.status(404).json({ message: "No blogs found with the specified author" });
+        }
+        else{
+            
+        }
+        res.status(200).json({ message: "Blogs updated successfully", data: updatedblog });
+    } catch (err) {
+        console.error("Error fetching blogs by tags:", err);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
+
+const deleteblog = async (req, res) => {
+    const id = req.query.id
+    // console.log(id,content)
+    try {
+        const deletedblog = await Blog.findByIdAndDelete();
+
+        if (!updateblog) {
+            return res.status(404).json({ message: "No blogs found with the specified author" });
+        }
+        else{
+            
+        }
+        res.status(200).json({ message: "Blogs deleted successfully", data: deletedblog });
+    } catch (err) {
+        console.error("Error fetching blogs by tags:", err);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
+
+module.exports = { createblog, createblogmultiple, getallblogs, getallauthors, getalltags, getwithtag, getwithauthor, getwithid ,getrandomblog,updateblog,deleteblog}
